@@ -95,10 +95,10 @@ splitAt path sound = case (path, sound) of
 
 joinAt : Path -> Sound -> Sound
 joinAt path sound = case (path, sound) of
-    ([], Pair l r)        -> Node False
-    (Left::ds, Pair l r)  -> Pair (joinAt ds l) r
-    (Right::ds, Pair l r) -> Pair l (joinAt ds r)
-    _                     -> Native.Error.raise "Cannot join a Node!"
+    ([], Pair (Node a) (Node b)) -> Node (a || b)
+    (Left::ds, Pair l r)         -> Pair (joinAt ds l) r
+    (Right::ds, Pair l r)        -> Pair l (joinAt ds r)
+    _                            -> Native.Error.raise "Cannot join a Node!"
 
 maybeBind : (a -> b) -> Maybe a -> Maybe b
 maybeBind f fm = case fm of
