@@ -36,7 +36,7 @@ mapD f dict = map (uncurry f) (Dict.toList dict)
 serialize : State -> Json.Value
 serialize state =
     let jsonifySound sound = case sound of
-        Node a -> Json.Boolean a
+        Node a -> Json.Number (if a then 1 else 0)
         Pair l r -> Json.Array (map jsonifySound [l, r])
     in Json.Object (Dict.map jsonifySound state)
 
