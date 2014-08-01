@@ -60,7 +60,7 @@ rowHeight = 100
 renderSound : Int -> Path -> Instrument -> Sound -> Element
 renderSound w path inst sound = case sound of
     Node on -> layers [ button (if on then red else blue) (Flip inst (reverse path)) w rowHeight
-                      , if (length path < 3) then
+                      , if (length path < 4) then
                           container w rowHeight middle (textButton (Split inst (reverse path)) (25, 15) "<>")
                         else empty
                       ]
@@ -117,8 +117,10 @@ app state = flow down (mapD renderInst state)
 
 initial = Dict.fromList [ ("kick", Node False)
                         , ("hi-hat", Node False)
-                        , ("snare", Pair (Node True) (Node False))
-                        , ("ping", Pair (Pair (Node True) (Node False)) (Node True))
+                        , ("snare", Node False)
+                        , ("ping", Node False)
+                        , ("shaker", Node False)
+                        , ("clap", Node False)
                         ]
 
 currentState = foldp step initial commands.signal

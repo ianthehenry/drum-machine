@@ -15,7 +15,7 @@
     var app = Elm.fullscreen(Elm.Drummer);
     app.ports.tellServer.subscribe(function(state) {
         var req = new XMLHttpRequest();
-        req.open("POST", "localhost:7000");
+        req.open("POST", "http://localhost:7000");
         req.send(JSON.stringify(state));
         console.log(JSON.stringify(state));
     });
